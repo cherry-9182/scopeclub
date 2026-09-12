@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-ink-950 text-ash-100 font-body antialiased;
+    overflow-x: hidden;
+    background-image: radial-gradient(ellipse at 20% 0%, rgba(139, 92, 246, 0.08), transparent 50%),
+                      radial-gradient(ellipse at 80% 100%, rgba(6, 182, 212, 0.06), transparent 50%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-violet-500/30 text-ash-100;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-ink-950; }
+  ::-webkit-scrollbar-thumb { @apply bg-violet-500/40 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-violet-400/60; }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-violet-400/50 ring-offset-2 ring-offset-ink-950;
+  }
+
+  a, button, input, textarea {
+    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.14);
+  }
+
+  a, button {
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+  }
+
+  a:active, button:active { transform: scale(0.97); }
+
+  input:focus, textarea:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1), 0 0 24px -8px rgba(139, 92, 246, 0.5);
+  }
+}
+
+@layer components {
+  .section-label {
+    @apply font-mono text-xs uppercase tracking-ultra-wide text-ash-400;
+  }
+
+  .section-title {
+    @apply font-display text-4xl font-bold tracking-tight text-ash-100 sm:text-5xl lg:text-6xl;
+  }
+
+  .card-base {
+    @apply relative overflow-hidden rounded-lg border border-ink-400/50 bg-ink-800/50 backdrop-blur-sm transition-all duration-500;
+  }
+
+  .card-base:active {
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 28px -10px rgba(139, 92, 246, 0.5);
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-violet-400/40 bg-gradient-to-r from-violet-500/15 via-blue-500/10 to-cyan-500/15 px-6 py-3 font-mono text-xs uppercase tracking-wider-2 text-ash-100 transition-all duration-300;
+  }
+  .btn-primary:hover {
+    @apply border-violet-300/60 shadow-[0_0_30px_-8px_rgba(139,92,246,0.4)];
+    background-image: linear-gradient(to right, rgba(139, 92, 246, 0.25), rgba(59, 130, 246, 0.15), rgba(6, 182, 212, 0.2));
+  }
+
+  .btn-ghost {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full border border-ink-300/50 px-6 py-3 font-mono text-xs uppercase tracking-wider-2 text-ash-200 transition-all duration-300 hover:border-cyan-400/50 hover:bg-cyan-500/5;
+  }
+
+  .btn-primary:active, .btn-ghost:active {
+    border-color: rgba(139, 92, 246, 0.7);
+    box-shadow: 0 0 28px -10px rgba(139, 92, 246, 0.5);
+  }
+}
+
+@layer utilities {
+  .grain { position: relative; }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+
+  .scanlines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.012) 2px, rgba(255, 255, 255, 0.012) 4px);
+    z-index: 2;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyan-300 via-violet-300 to-pink-300 bg-clip-text text-transparent;
+  }
+
+  .text-glow-accent {
+    text-shadow: 0 0 40px rgba(139, 92, 246, 0.25), 0 0 80px rgba(6, 182, 212, 0.1);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .mask-fade-r {
+    mask-image: linear-gradient(to right, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  }
+}
